@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        
+        int length = s.length();
+        bool table[length][length] = {};
+ 
+        int maxlength = 1;
+        int start =0;
+        
+        
+        for(int i =0;i<length;i++){
+            table[i][i] = true;
+          
+            
+        }
+        
+        for(int i=0;i<length-1;i++){
+            if(s[i] ==s[i+1]){
+                table[i][i+1] = true;
+                maxlength = 2;
+                start =i;
+            }
+        }
+        
+        for(int k=3;k<=length;k++){
+            for(int j =0;j<length-k+1;j++){
+                int i = j+k-1;
+                if(s[j] == s[i] && table[j+1][i-1] == true){
+                    table[j][i] = true;
+                    if(k>maxlength){
+                        
+                        maxlength = k;
+                        start = j;
+                        std::cout<<maxlength<<endl;
+                    }
+                }
+            }
+        }
+        std::cout<<start<<" "<<maxlength<<endl;
+        std::cout<<s.substr(start,maxlength);
+        return s.substr(start,maxlength);
+        
+    }
+};
