@@ -1,0 +1,28 @@
+
+class Solution {
+    
+    public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char,int> map;
+        unordered_map<char,int>::iterator  itr;
+        int ans =0;
+        int i=0;
+        for(int j=0;j<s.length();j++){
+            itr = map.find(s[j]);
+            if(itr != map.end()){
+                i = std::max(itr->second,i);
+                itr->second = j+1;
+                 
+            }
+            ans = std::max(j-i+1,ans);
+            map.insert(make_pair(s[j],j+1));
+            
+        }
+        
+        for(itr=map.begin();itr!=map.end();itr++){
+            std::cout<<itr->first<<""<<itr->second;
+        }
+        
+        return ans;
+    }
+};
